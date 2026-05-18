@@ -16,7 +16,7 @@ async def naver_orders():
 
         context = await p.chromium.launch_persistent_context(
             PROFILE_DIR,
-            headless=False
+            headless=True
         )
 
         page = await context.new_page()
