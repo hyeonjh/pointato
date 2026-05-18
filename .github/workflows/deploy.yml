@@ -1,0 +1,27 @@
+name: Deploy Pointato
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  deploy:
+    runs-on: self-hosted
+
+    steps:
+      - name: Pull latest code
+        working-directory: /home/hyeonjh/pointato
+        run: |
+          git fetch origin main
+          git reset --hard origin/main
+
+      - name: Install dependencies
+        working-directory: /home/hyeonjh/pointato
+        run: |
+          source venv/bin/activate
+          pip install -r requirements.txt || true
+
+      - name: Restart pointato
+        run: |
+          sudo systemctl restart pointato || true
