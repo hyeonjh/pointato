@@ -6,3 +6,6 @@ profiles/
 *.db
 .vscode/
 .idea/
+actions-runner/
+documents/
+ystemctl status pointato
