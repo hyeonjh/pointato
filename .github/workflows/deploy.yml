@@ -18,11 +18,11 @@ jobs:
 
       - name: Install dependencies
         run: |
-          cd /home/hyeonjh/pointato
+          cd /home/hyeonjh/pointato/backend
           source venv/bin/activate
           pip install --upgrade pip
-          pip install -r backend/requirements.txt
-
+          pip install -r requirements.txt
+ㅜ
       - name: Restart pointato
         run: |
           sudo systemctl restart pointato
