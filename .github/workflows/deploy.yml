@@ -1,5 +1,7 @@
 name: Deploy Pointato
 
+name: deploy
+
 on:
   push:
     branches:
@@ -11,17 +13,18 @@ jobs:
 
     steps:
       - name: Pull latest code
-        working-directory: /home/hyeonjh/pointato
         run: |
+          cd /home/hyeonjh/pointato
           git fetch origin main
           git reset --hard origin/main
 
       - name: Install dependencies
-        working-directory: /home/hyeonjh/pointato
         run: |
+          cd /home/hyeonjh/pointato
           source venv/bin/activate
-          pip install -r requirements.txt || true
+          pip install --upgrade pip
+          pip install -r backend/requirements.txt
 
       - name: Restart pointato
         run: |
-          sudo systemctl restart pointato || true
+          sudo systemctl restart pointato
