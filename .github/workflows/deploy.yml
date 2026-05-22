@@ -22,7 +22,7 @@ jobs:
           source venv/bin/activate
           pip install --upgrade pip
           pip install -r requirements.txt
-ㅜ
+
       - name: Restart pointato
         run: |
           sudo systemctl restart pointato
