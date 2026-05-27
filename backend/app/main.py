@@ -57,9 +57,9 @@ async def naver_orders():
 SITE_CONFIGS = {
     "naver": {
         "site": "naver",
-        "displayName": "네이버_테스트",
+        "displayName": "네이버",
         "orderPageUrl": "https://shopping.naver.com/my/order",
-        "maxPage": 1,
+        "maxPage": 2,
         "selectors": {
             "orderCard": "[class*=OrderProductBundle_order_card]",
             "status": "strong[class*=OrderProduct_status]",
@@ -70,7 +70,7 @@ SITE_CONFIGS = {
             "productUrl": "a[class*=OrderProductItem_thumb_area]",
             "detailUrl": "a[class*=OrderProductItem_btn_detail]",
             "reviewButton": "[data-shp-contents-id='리뷰쓰기'], [data-shp-contents-id='한달사용리뷰']",
-            "reviewReward": "[class*=UserActionButtons_text]",
+            "reviewReward": "[class*=WRONG_REWARD_SELECTOR]",
             "pageButtons": "a, button"
         }
     }
