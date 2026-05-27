@@ -57,9 +57,9 @@ async def naver_orders():
 SITE_CONFIGS = {
     "naver": {
         "site": "naver",
-        "displayName": "네이버",
+        "displayName": "네이버_테스트",
         "orderPageUrl": "https://shopping.naver.com/my/order",
-        "maxPage": 2,
+        "maxPage": 1,
         "selectors": {
             "orderCard": "[class*=OrderProductBundle_order_card]",
             "status": "strong[class*=OrderProduct_status]",
