@@ -5,6 +5,10 @@ app = FastAPI()
 
 PROFILE_DIR = "./profiles/naver"
 
+BASE_DIR = Path(__file__).resolve().parent.parent
+CONFIG_DIR = BASE_DIR / "configs" / "sites"
+
+
 @app.get("/")
 async def home():
     return {"message": "Pointato local agent running"}
@@ -54,34 +58,15 @@ async def naver_orders():
 
 
 
-SITE_CONFIGS = {
-    "naver": {
-        "site": "naver",
-        "displayName": "네이버",
-        "orderPageUrl": "https://shopping.naver.com/my/order",
-        "maxPage": 2,
-        "selectors": {
-            "orderCard": "[class*=OrderProductBundle_order_card]",
-            "status": "strong[class*=OrderProduct_status]",
-            "deliveryBlind": ".blind",
-            "date": "[class*=OrderProductItem_date]",
-            "name": "[class*=OrderProductItem_name]",
-            "price": "strong[class*=OrderProductItem_price]",
-            "productUrl": "a[class*=OrderProductItem_thumb_area]",
-            "detailUrl": "a[class*=OrderProductItem_btn_detail]",
-            "reviewButton": "[data-shp-contents-id='리뷰쓰기'], [data-shp-contents-id='한달사용리뷰']",
-            "reviewReward": "[class*=WRONG_REWARD_SELECTOR]",
-            "pageButtons": "a, button"
-        }
-    }
-}
-
-
 @app.get("/api/sites/{site}/config")
 async def get_site_config(site: str):
-    config = SITE_CONFIGS.get(site)
+    config_path = CONFIG_DIR / f"{site}.json"
 
-    if not config:
+    if not config_path.exists():
         raise HTTPException(status_code=404, detail="site config not found")
 
-    return config
+    try:
+        with config_path.open("r", encoding="utf-8") as f:
+            return json.load(f)
+    except json.JSONDecodeError:
+        raise HTTPException(status_code=500, detail="invalid site config json")
